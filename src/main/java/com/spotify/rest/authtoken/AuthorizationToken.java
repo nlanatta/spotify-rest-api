@@ -14,8 +14,8 @@ import com.wrapper.spotify.requests.authorization.authorization_code.Authorizati
 public class AuthorizationToken {
 	private static final String clientId = "b9d3a52f089a4a8b91e70ae0e290138e";
 	private static final String clientSecret = "a715aa9814e7440684a2b628c0c61431";
-	private static final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/spotify");
-	private static final String code = "";
+	private static final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:3000/spotifyloginresponse");
+	public static String code = "";
 
 	private static final SpotifyApi spotifyApi = new SpotifyApi.Builder().setClientId(clientId)
 			.setClientSecret(clientSecret).setRedirectUri(redirectUri).build();
