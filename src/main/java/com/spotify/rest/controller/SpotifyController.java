@@ -4,28 +4,39 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spotify.rest.authtoken.AuthorizationCode;
-import com.spotify.rest.authtoken.AuthorizationToken;
+import com.spotify.rest.model.TokenData;
+import com.spotify.rest.service.SpotifyApiService;
 
 @RestController
 public class SpotifyController {
 
-	@RequestMapping("/userData")
-	public Object tokenAccepted(Map<String, Object> model, @RequestParam("code") String code)
+	@Autowired
+	private SpotifyApiService spotifyService;
+	
+	@RequestMapping(value = "/userPlayLists", method = RequestMethod.GET ,headers="Accept=application/json")
+	public Object userLists(@RequestParam("userId") String userId)
 	{
-		AuthorizationToken.code = code;
-		AuthorizationToken.authorizationCode_Async();
-		return "YEaa";
+		return spotifyService.getUserLists(userId);
+	}
+	
+	@RequestMapping(value = "/userData", method = RequestMethod.POST ,headers="Accept=application/json")
+	public Object userData(@RequestBody TokenData data)
+	{
+		spotifyService.createSpotifyApi(data.getCode());
+		return spotifyService.getUserProfile();
 	}
 	
 	@RequestMapping("/login")
 	public Object tokenRequest(Map<String, Object> model) throws MalformedURLException
 	{
-		URI uri = AuthorizationCode.authorizationCodeUri_Sync();
+		URI uri = spotifyService.getSpotifyUri();
 		return uri;
 	}
 	
