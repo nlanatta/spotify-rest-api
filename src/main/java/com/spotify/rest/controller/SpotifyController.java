@@ -26,6 +26,12 @@ public class SpotifyController {
 		return spotifyService.getUserLists(userId);
 	}
 	
+	@RequestMapping(value = "/removeDuplicateTracks", method = RequestMethod.GET ,headers="Accept=application/json")
+	public Object removeDuplicateTracks(@RequestParam("userId") String userId)
+	{
+		return spotifyService.getUserLists(userId);
+	}
+	
 	@RequestMapping(value = "/userData", method = RequestMethod.POST ,headers="Accept=application/json")
 	public Object userData(@RequestBody TokenData data)
 	{
