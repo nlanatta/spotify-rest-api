@@ -16,7 +16,7 @@ public class AuthorizationCode {
 	private static final SpotifyApi spotifyApi = new SpotifyApi.Builder().setClientId(clientId)
 			.setClientSecret(clientSecret).setRedirectUri(redirectUri).build();
 	private static final AuthorizationCodeUriRequest authorizationCodeUriRequest = spotifyApi.authorizationCodeUri()
-			.state("x4xkmn9pu3j6ukrs8n").scope("user-read-birthdate,user-read-email").show_dialog(true).build();
+			.state("x4xkmn9pu3j6ukrs8n").scope("user-read-birthdate,user-read-email,playlist-modify-public").show_dialog(true).build();
 
 	public static URI authorizationCodeUri_Sync() {
 		final URI uri = authorizationCodeUriRequest.execute();
